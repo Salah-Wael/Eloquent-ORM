@@ -166,46 +166,85 @@ Route::get('/retrieve', function () {
     // dump($user);
 
     #################value###################
-
-    // $userEmail = User::where('role', 'admin')->first()->value('email');//return value
-    // ==
-    $userEmail = User::where('role', 'admin')->first(['email']);//return collection
+    /*
+    $userEmail = User::where('role', 'admin')->first(['email'])->value('email');
+    ==
+    $userEmail = User::where('role', 'admin')->first(['email']);
     dump($userEmail);
-
-
-
-
-
-
-    #################pluck (max pass 2)###################
-    //         
-    /**                                 value    key
-        $user = User::where('role', 'user')->pluck('name', 'email'); //get column (base collection)
-        dump($user);
-        $user = User::where('role', 'user')->pluck('password', 'email')->toArray(); //get column (array)
-        dump($user);
      */
 
-    /** 
-        // Initialize the $user array
-        $user = User::where('role', 'user')->pluck('name', 'email')->toArray();
-
-        // Merge the two collections into one array
-        $passwords = User::where('role', 'user')->pluck('password', 'email')->toArray();
-
-        // Merge the arrays with email as the key
-        foreach ($passwords as $email => $password) {
-            if (isset($user[$email])) {
-                $user[$email] = [
-                    'name' => $user[$email],
-                    'password' => $password
-                ];
-            }
-        }
-
-        dump($user);
-     */
+    #################pluck###################
+    //                                         value    key
+    // $user = User::where('role', 'user')->pluck('name' ,'email')->toArray();//get column
+    // dump($user);
 });
 
 ###########################################Aggregate##########################################################
-Route::get('/aggregate', function () {});
+Route::get('/retrieve', function () {
+
+    ##############all###################
+    // $users = User::all();
+    // $users = User::all(['email', 'password']);
+    // $users = User::all(['email as smsm', 'password']);//alias email => smsm
+
+    ##############get###################
+    // $users = User::get();// == User::all()
+    // $users = User::where('name', 'fkha')->get();
+    // $users = User::get(['email', 'password']);
+    // $users = User::where('name', 'fkha')->get(['email as smsm', 'password']);//alias email => smsm
+
+    ##############select###################
+    // $users = User::select('email', 'password')->get();
+    // $users = User::where('name', 'fkha')->select(['name as smsm', 'password'])->get();
+
+    ##############addSelect###################
+    // $users = User::select('email', 'password')->get();
+
+    // $users = User::where('name', 'fkha')
+    //             ->select(['name as smsm', 'password'])
+    //             ->addSelect('role')
+    //             ->get();
+
+    // $users = User::where('name', 'fkha')
+    //             ->select(['name', 'password']);
+    // $users= $users->addSelect('role')->get();
+
+    #################find###################
+    // $user = User::find(1);
+    // $user = User::find(1, ['name as username', 'role', 'created_at', 'updated_at']);
+    // $user = User::find([1, 2, 3], ['name as username', 'role', 'created_at', 'updated_at']);
+
+    #################findOr###################
+    // $user = User::findOr(500, function () {
+    //     return dd('ss');
+    // });
+
+    #################findOrFail###################
+    // $user = User::findOrFail(500);
+
+    #################first###################
+    // $user = User::where('role', 'admin')->first();
+    // $user = User::where('id', '6')->first(['id','name as username', 'role', 'created_at', 'updated_at']);
+
+    #################firstOr###################
+    // $user = User::where('id',600)->firstOr(function () {
+    //     return dd('ss');
+    // });
+
+    #################firstOrFail###################
+    // $user = User::where('id', 600)->firstOrFail();
+    // dump($user);
+
+    #################value###################
+    /*
+    $userEmail = User::where('role', 'admin')->first(['email'])->value('email');
+    ==
+    $userEmail = User::where('role', 'admin')->first(['email']);
+    dump($userEmail);
+     */
+
+    #################pluck###################
+    //                                         value    key
+    // $user = User::where('role', 'user')->pluck('name' ,'email')->toArray();//get column
+    // dump($user);
+});

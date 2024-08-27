@@ -169,7 +169,7 @@ Route::get('/retrieve', function () {
 
     // $userEmail = User::where('role', 'admin')->first()->value('email');//return value
     // ==
-    $userEmail = User::where('role', 'admin')->first(['email']);//return collection
+    $userEmail = User::where('role', 'admin')->first(['email']);//return collec
     dump($userEmail);
 
 

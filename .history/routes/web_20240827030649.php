@@ -166,16 +166,16 @@ Route::get('/retrieve', function () {
     // dump($user);
 
     #################value###################
-
-    // $userEmail = User::where('role', 'admin')->first()->value('email');//return value
-    // ==
-    $userEmail = User::where('role', 'admin')->first(['email']);//return collection
+    
+    $userEmail = User::where('role', 'admin')->first()->value('email');
+    ==
+    $userEmail = User::where('role', 'admin')->first(['email']);
     dump($userEmail);
-
-
-
-
-
+    
+    
+    
+    
+    
 
     #################pluck (max pass 2)###################
     //         

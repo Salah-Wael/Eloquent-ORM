@@ -166,16 +166,12 @@ Route::get('/retrieve', function () {
     // dump($user);
 
     #################value###################
-
-    // $userEmail = User::where('role', 'admin')->first()->value('email');//return value
-    // ==
-    $userEmail = User::where('role', 'admin')->first(['email']);//return collection
+    /*
+    $userEmail = User::where('role', 'admin')->first(['email'])->value('email');
+    ==
+    $userEmail = User::where('role', 'admin')->first(['email']);
     dump($userEmail);
-
-
-
-
-
+     */
 
     #################pluck (max pass 2)###################
     //         
@@ -187,23 +183,23 @@ Route::get('/retrieve', function () {
      */
 
     /** 
-        // Initialize the $user array
-        $user = User::where('role', 'user')->pluck('name', 'email')->toArray();
+    // Initialize the $user array
+    $user = User::where('role', 'user')->pluck('name', 'email')->toArray();
 
-        // Merge the two collections into one array
-        $passwords = User::where('role', 'user')->pluck('password', 'email')->toArray();
+    // Merge the two collections into one array
+    $passwords = User::where('role', 'user')->pluck('password', 'email')->toArray();
 
-        // Merge the arrays with email as the key
-        foreach ($passwords as $email => $password) {
-            if (isset($user[$email])) {
-                $user[$email] = [
-                    'name' => $user[$email],
-                    'password' => $password
-                ];
-            }
+    // Merge the arrays with email as the key
+    foreach ($passwords as $email => $password) {
+        if (isset($user[$email])) {
+            $user[$email] = [
+                'name' => $user[$email],
+                'password' => $password
+            ];
         }
+    }
 
-        dump($user);
+    dump($user);
      */
 });
 
